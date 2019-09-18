@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web3-transaction</title>
+    <link href="http://fonts.googleapis.com/css?family=Kurale" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<table style=" width: 100%; border: 4px double black;">
+    <tr>
+        <td style="border: 1px solid black; text-align: center">
+            <a href="/registration">Registration</a>
+        </td>
+    </tr>
+</table>
+
+<h1>Transaction</h1>
+
+<form>
+    <form id="reg" method="POST">
+
+        SenderName: <input type="text" required="required" name="senderName"><br/><br/>
+        SenderPass: <input type="password" required="required" name="senderPass"><br/><br/>
+        Count: <input type="number" required="required" name="count"><br/><br/>
+        NameTo: <input type="text" required="required" name="nameTo"><br/><br/>
+        <hr>
+
+        <br/><br/>
+        <hr>
+        <input type="submit" onClick="add.action = '/transaction'" value="Transaction">
+
+    </form>
+
+
+
+</body>
+</html>

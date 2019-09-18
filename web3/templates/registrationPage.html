@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>web3-registration</title>
+    <link href="http://fonts.googleapis.com/css?family=Kurale" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+
+<table style=" width: 100%; border: 4px double black;">
+    <tr>
+        <td style="border: 1px solid black; text-align: center">
+            <a href="/transaction">Transaction</a>
+        </td>
+    </tr>
+</table>
+
+<h1>Registration</h1>
+
+<form>
+    <form id="reg" method="POST">
+        Name: <input type="text" required="required" name="name"/><br/><br/>
+        Password: <input type="password" required="required" name="password"/><br/><br/>
+        Money: <input type="number" required="required" name="money"/><br/><br/>
+        <hr>
+
+        <br/><br/>
+        <hr>
+        <input type="submit" onClick="add.action = '/registration'" value="Registration">
+
+</form>
+
+</body>
+</html>
+
