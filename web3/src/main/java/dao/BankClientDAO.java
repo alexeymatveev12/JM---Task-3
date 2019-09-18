@@ -48,7 +48,7 @@ public class BankClientDAO {
     }
 
     public void updateClientsMoney(String name, String password, Long transactValue) throws SQLException {
-        if (validateClient(name, password)) {
+       //if (validateClient(name, password)) {
             BankClient bankClient = getClientByName(name);
             long updatedMoney = bankClient.getMoney() + transactValue;
             String requestSQL = "UPDATE bank_client SET money = ? WHERE name = ?";
@@ -58,10 +58,13 @@ public class BankClientDAO {
             preStmt.setString(2, bankClient.getName());
             preStmt.execute();
             preStmt.close();
-        }
-    }
 
-    public BankClient getClientById(long id) throws SQLException {
+         }
+
+
+
+    public BankClient getClientById(long id) /*throws SQLException*/ {
+   try {
         Statement stmt = connection.createStatement();
         stmt.execute("SELECT * FROM bank_clien WHERE id ='" + id + "'");
         ResultSet result = stmt.getResultSet();
@@ -75,6 +78,9 @@ public class BankClientDAO {
         stmt.close();
 
         return bankClient;
+    } catch (SQLException e) {
+        return null;
+    }
     }
 
     public boolean isClientHasSum(String name, Long expectedSum) throws SQLException {
@@ -125,13 +131,12 @@ public class BankClientDAO {
     }
 
     public void addClient(BankClient client) /*throws DBException*/ {
-        //  BankClient bankClient = getClientByName(name);
-        //  long updatedMoney = bankClient.getMoney() + transactValue;
-        // String nameClient = client.getName();
+
+
 
         if (getClientByName(client.getName()) == null) {
             String requestSQL = "INSERT INTO bank_client (name, password, money) VALUES (?, ?, ?)";
-            PreparedStatement preStmt = null;
+            PreparedStatement preStmt;
             try {
 
 
@@ -176,7 +181,7 @@ public class BankClientDAO {
 
     }
 
-
+/*
     // add sendMoneyToClient to BankClientDAO
     public boolean sendMoneyToClient(BankClient sender, String name, long value) throws SQLException {
         if (validateClient(sender.getName(), sender.getPassword())) {
@@ -200,7 +205,7 @@ public class BankClientDAO {
 
     }
 
-
+*/
 
 
 }

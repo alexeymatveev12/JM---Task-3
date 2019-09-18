@@ -14,16 +14,16 @@ public class BankClientService {
 
     public BankClientService() {
     }
-
+/*
     //Метод не используется???
-    public BankClient getClientById(long id) throws DBException {
+    public BankClient getClientById(long id) throws SQLException, DBException {
         try {
             return getBankClientDAO().getClientById(id);
         } catch (SQLException e) {
             throw new DBException(e);
         }
     }
-
+*/
     public BankClient getClientByName(String name) { // Почему нет исключения?????
         return getBankClientDAO().getClientByName(name);
     }
@@ -50,7 +50,7 @@ public class BankClientService {
         }
         return false;
     }
-
+/*
     // add validateClient to BankClientDAO
     public boolean validateClient(String name, String password) throws SQLException {
         if (getBankClientDAO().validateClient(name, password)) {
@@ -62,6 +62,8 @@ public class BankClientService {
         return false;
     }
 
+ */
+/*
     // add sendMoneyToClient to BankClientDAO
     public boolean sendMoneyToClient(BankClient sender, String name, Long value) throws DBException {
         try {
@@ -74,6 +76,38 @@ public class BankClientService {
 
         return false;
     }
+*/
+public boolean sendMoneyToClient(BankClient sender, String name, long value) /*throws SQLException*/ {
+    BankClientDAO bankClientDAO = getBankClientDAO();
+    try {
+        if (bankClientDAO.validateClient(sender.getName(), sender.getPassword())) {
+            if (bankClientDAO.isClientHasSum(sender.getName(), value)) {
+                BankClient receiver = bankClientDAO.getClientByName(name);
+                if (receiver == null) {
+                    return false; //неправильный получатель
+                }
+
+                bankClientDAO.updateClientsMoney(sender.getName(), sender.getPassword(), -value);
+                bankClientDAO.updateClientsMoney(receiver.getName(), receiver.getPassword(), value);
+
+                return true;
+
+            } else {
+                return false;// когда нет денег...
+            }
+        } else {
+            return false; // клиент не прошёл проверку
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+        //return false;
+    return false;
+}
+
+
+
+
 
     public void cleanUp() throws DBException {
         BankClientDAO dao = getBankClientDAO();

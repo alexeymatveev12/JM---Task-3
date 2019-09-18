@@ -35,14 +35,10 @@ public class MoneyTransactionServlet extends HttpServlet {
 
         BankClient bankClient = new BankClient(senderName, senderPass, count);
 // исключение перенести в сервис или дао
-        try {
-            if (bankClientService.sendMoneyToClient(bankClient, nameTo, count)) {
-                messageForm.put("message", "The transaction was successful");
-            } else {
-                messageForm.put("message", "transaction rejected");
-            }
-        } catch (DBException e) {
-            e.printStackTrace();
+        if (bankClientService.sendMoneyToClient(bankClient, nameTo, count)) {
+            messageForm.put("message", "The transaction was successful");
+        } else {
+            messageForm.put("message", "transaction rejected");
         }
         resp.getWriter().println(PageGenerator.getInstance().getPage("resultPage.html", messageForm));
         resp.setStatus(HttpServletResponse.SC_OK);
