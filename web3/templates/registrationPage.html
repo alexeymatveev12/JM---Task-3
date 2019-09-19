@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8"/>
     <title>web3-registration</title>
+
     <link href="http://fonts.googleapis.com/css?family=Kurale" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -18,8 +20,7 @@
 
 <h1>Registration</h1>
 
-<form>
-    <form id="reg" method="POST">
+<form  method="POST">
         Name: <input type="text" required="required" name="name"/><br/><br/>
         Password: <input type="password" required="required" name="password"/><br/><br/>
         Money: <input type="number" required="required" name="money"/><br/><br/>
@@ -27,7 +28,7 @@
 
         <br/><br/>
         <hr>
-        <input type="submit" onClick="add.action = '/registration'" value="Registration">
+        <button type="submit">Registration</button>
 
 </form>
 

@@ -128,7 +128,7 @@ public boolean sendMoneyToClient(BankClient sender, String name, long value) /*t
 
     private static Connection getMysqlConnection() {
         try {
-            DriverManager.registerDriver((Driver) Class.forName("com.mysql.jdbc.Driver").newInstance());
+            DriverManager.registerDriver((Driver) Class.forName("com.mysql.cj.jdbc.Driver").newInstance());
 
             StringBuilder url = new StringBuilder();
 

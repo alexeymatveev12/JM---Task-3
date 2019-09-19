@@ -27,8 +27,8 @@ public class BankClientDAO {
                 String nameClient = result.getString(2);
                 String passwordClient = result.getString(3);
                 long moneyClient = result.getLong(4);
-            allBankClients.add(new BankClient(idClient, nameClient, passwordClient, moneyClient));
-        }
+                allBankClients.add(new BankClient(idClient, nameClient, passwordClient, moneyClient));
+            }
         result.close();
        // stmt.close();
     } catch (SQLException e) {
@@ -48,18 +48,18 @@ public class BankClientDAO {
     }
 
     public void updateClientsMoney(String name, String password, Long transactValue) throws SQLException {
-       //if (validateClient(name, password)) {
-            BankClient bankClient = getClientByName(name);
-            long updatedMoney = bankClient.getMoney() + transactValue;
-            String requestSQL = "UPDATE bank_client SET money = ? WHERE name = ?";
-            PreparedStatement preStmt = connection.prepareStatement(requestSQL);
+        //if (validateClient(name, password)) {
+        BankClient bankClient = getClientByName(name);
+        long updatedMoney = bankClient.getMoney() + transactValue;
+        String requestSQL = "UPDATE bank_client SET money = ? WHERE name = ?";
+        PreparedStatement preStmt = connection.prepareStatement(requestSQL);
 
-            preStmt.setLong(1, updatedMoney);
-            preStmt.setString(2, bankClient.getName());
-            preStmt.execute();
-            preStmt.close();
+        preStmt.setLong(1, updatedMoney);
+        preStmt.setString(2, bankClient.getName());
+        preStmt.executeUpdate();
+        preStmt.close();
 
-         }
+    }
 
 
 
@@ -130,15 +130,14 @@ public class BankClientDAO {
 
     }
 
-    public void addClient(BankClient client) /*throws DBException*/ {
+ //   public void addClient(BankClient client) /*throws DBException*/ {
 
-
+/*
 
         if (getClientByName(client.getName()) == null) {
             String requestSQL = "INSERT INTO bank_client (name, password, money) VALUES (?, ?, ?)";
             PreparedStatement preStmt;
             try {
-
 
                 preStmt = connection.prepareStatement(requestSQL);
 
@@ -153,6 +152,23 @@ public class BankClientDAO {
             }
         }
     }
+     */
+/////////////////////////////////////////////////////////////////
+
+    public void addClient(BankClient client) {
+        try (PreparedStatement stmt = connection.prepareStatement(
+                "INSERT INTO bank_client (name, password, money) VALUES (?, ?, ?)")) {
+            stmt.setString(1, client.getName());
+            stmt.setString(2, client.getPassword());
+            stmt.setLong(3, client.getMoney());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+///////////////////////////////////////////////////////////
+
 
     public void createTable() throws SQLException {
         Statement stmt = connection.createStatement();
